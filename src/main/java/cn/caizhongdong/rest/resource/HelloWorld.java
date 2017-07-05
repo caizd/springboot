@@ -2,6 +2,9 @@ package cn.caizhongdong.rest.resource;
 
 //import cn.caizhongdong.rest.service.IRegService;
 //import org.springframework.beans.factory.annotation.Autowired;
+import cn.caizhongdong.entity.User;
+import cn.caizhongdong.rest.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import javax.ws.rs.Consumes;
@@ -18,15 +21,14 @@ import java.util.Map;
 @Controller
 
 public class HelloWorld {
-//    @Autowired
-//    private IRegService regService;
+    @Autowired
+    private UserService service;
 
     @GET
     @Path("/hello")
-    public Map<String,String> reg() {
-        Map<String,String> map = new HashMap<>();
-        map.put("name","123");
-        return map;
+    public User getUserById() {
+        User user = service.getUserById("123");
+        return user;
     }
 
 }
