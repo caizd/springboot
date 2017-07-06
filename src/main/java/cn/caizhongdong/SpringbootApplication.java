@@ -6,12 +6,14 @@ import org.glassfish.jersey.servlet.ServletProperties;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 //@MapperScan("com.example.mapper")
-public class SpringbootApplication {
+public class SpringbootApplication extends SpringBootServletInitializer{
 	@Bean
 	public ServletRegistrationBean jerseyServlet() {
 		ServletRegistrationBean registration = new ServletRegistrationBean(new ServletContainer(), "/rest/*");
@@ -21,5 +23,10 @@ public class SpringbootApplication {
 	}
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootApplication.class, args);
+	}
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+		return builder.sources(this.getClass());
 	}
 }
