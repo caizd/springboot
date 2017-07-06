@@ -1,10 +1,14 @@
 package cn.caizhongdong.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by caizhongdong on 2017/7/5.
  */
-public class User {
 
+public class User implements Serializable {
+
+    private static final long serialVersionUID = -5343220540016144367L;
     private String userId;
     private String name;
 
