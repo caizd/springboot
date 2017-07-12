@@ -1,6 +1,6 @@
 package cn.caizhongdong.mapper;
 
-import cn.caizhongdong.entity.User;
+import cn.caizhongdong.domain.User;
 import org.apache.ibatis.annotations.*;
 
 /**
@@ -8,9 +8,12 @@ import org.apache.ibatis.annotations.*;
  */
 @Mapper
 public interface UserMapper {
-    @Select("select * from users where userId = #{userId}")
-    User findUserByUserid(@Param("userId") String userId);
+//    @Select("select * from users where userId = #{userId}")
+//    User findUserByUserid(@Param("userId") String userId);
+    User getUserByOpenId(@Param("openId") String openId);
+//
+//    @Update("update users set name=#{name} where userId = #{userId}")
+//    int updateUserByUserid(@Param("name") String name,@Param("userId") String userId);
 
-    @Update("update users set name=#{name} where userId = #{userId}")
-    int updateUserByUserid(@Param("name") String name,@Param("userId") String userId);
+    int saveUser(User user);
 }

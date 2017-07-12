@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.caizhongdong.mapper.UserMapper">
+
+    <insert id="saveUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+      insert into users (openId,nickName,gender,city,province,country,avatarUrl)  values(#{openId},#{nickName},#{gender},#{city},#{province},#{country},#{avatarUrl})
+    </insert>
+    <select id="getUserByOpenId" resultType="User" parameterType="String">
+      select * from users where openid = #{openId}
+    </select>
+</mapper>
