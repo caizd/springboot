@@ -1,7 +1,9 @@
 package cn.caizhongdong.rest.service;
 
+import cn.caizhongdong.domain.Rundata;
 import cn.caizhongdong.domain.User;
 import cn.caizhongdong.util.HttpclientUtil;
+import cn.caizhongdong.weixin.WeRunInfo;
 import cn.caizhongdong.weixin.WxEncryptedData;
 import cn.caizhongdong.weixin.WxUserInfoJson;
 import org.slf4j.Logger;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,10 +36,13 @@ public class LoginService {
             map = HttpclientUtil.getJson("https://api.weixin.qq.com/sns/jscode2session?appid=" + appid + "&secret=" + appSecret + "&js_code=" + code + "&grant_type=authorization_code");
             String session_key = String.valueOf(map.get("session_key"));
             WxUserInfoJson userInfo = data.decrypt(session_key);
+            WeRunInfo weRunInfo = data.wxRunDecrypt(session_key);
             User user = userInfo.transToUser();
             service.saveUser(user);
             map.clear();
+            List<Rundata> list = weRunInfo.getStepInfoList();
             map.put("openId", user.getOpenId());
+            map.put("stepInfoList", list);
         } catch (Exception e) {
             log.error("登陆失败", e);
         }
