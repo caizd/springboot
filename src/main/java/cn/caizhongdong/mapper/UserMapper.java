@@ -12,8 +12,8 @@ public interface UserMapper {
 //    User findUserByUserid(@Param("userId") String userId);
     User getUserByOpenId(@Param("openId") String openId);
 //
-//    @Update("update users set name=#{name} where userId = #{userId}")
-//    int updateUserByUserid(@Param("name") String name,@Param("userId") String userId);
+    @Update("update users set nickName=#{name} where id = #{id}")
+    int updateUserByUserid(@Param("name") String name,@Param("id") Integer id);
 
     int saveUser(User user);
 }

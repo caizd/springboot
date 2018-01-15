@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-
-import java.beans.Transient;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by caizhongdong on 2017/7/5.
@@ -28,18 +28,20 @@ public class UserService {
         return user;
     }
 
-    //    @CachePut(value = "user", key="123")
-//    public User updateUserByUserid(User user){
-//        int count = userMapper.updateUserByUserid(user.getName(),user.getUserId());
-//        if(count>0){
-//            return user;
-//        }
-//        return null;
-//    }
+    @CachePut(value = "user", key="#user.openId")
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public User updateUserByUserid(User user){
+        int count = userMapper.updateUserByUserid(user.getNickName(),user.getId());
+        if(count>0){
+            return user;
+        }
+        return null;
+    }
     @CachePut(value = "user", key = "#user.openId")
-    @Transient
+    @Transactional(propagation = Propagation.REQUIRED)
     public User saveUser(User user) {
-        User user1 = userMapper.getUserByOpenId(user.getOpenId());
+        User user1 = userMapper.getUserByOpenId("oHfoK0eXvGdRxXjFwj6PZxYnvRPo");
+        userMapper.updateUserByUserid("sss",5);
         if (user1 == null) {
             userMapper.saveUser(user);
         }
