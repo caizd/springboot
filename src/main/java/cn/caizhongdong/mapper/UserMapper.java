@@ -2,11 +2,13 @@ package cn.caizhongdong.mapper;
 
 import cn.caizhongdong.domain.User;
 import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.Repository;
 
 /**
  * Created by caizhongdong on 2017/7/5.
  */
 @Mapper
+@Repository
 public interface UserMapper {
 //    @Select("select * from users where userId = #{userId}")
 //    User findUserByUserid(@Param("userId") String userId);
